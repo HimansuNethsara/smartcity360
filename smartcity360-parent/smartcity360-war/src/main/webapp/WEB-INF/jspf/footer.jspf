@@ -1,0 +1,105 @@
+</main>
+<footer class="foot">
+    <div class="wrap">
+        <div class="foot-grid">
+            <div>
+                <a class="brand" href="${pageContext.request.contextPath}/">
+                    <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9l5-3v15"/><path d="M10 21V4l9 4v13"/><path d="M13 11h3M13 15h3"/></svg></span>
+                    <span>SmartCity<b>360</b></span>
+                </a>
+                <p class="foot-about">One platform for the city's energy, lighting and resident services. We help councils see what is happening
+                    across the city, act on it quickly, and keep residents informed.</p>
+                <div class="socials">
+                    <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 5.9a8 8 0 0 1-2.4.7 4 4 0 0 0 1.8-2.2 8 8 0 0 1-2.6 1 4 4 0 0 0-6.9 3.7A11.4 11.4 0 0 1 3.7 4.8a4 4 0 0 0 1.2 5.4 4 4 0 0 1-1.8-.5 4 4 0 0 0 3.2 4 4 4 0 0 1-1.8.1 4 4 0 0 0 3.7 2.8A8 8 0 0 1 2 18.2 11.3 11.3 0 0 0 8.1 20c7.5 0 11.7-6.3 11.7-11.7v-.5A8 8 0 0 0 22 5.9z"/></svg></a>
+                    <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></a>
+                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.5 7.2a2.5 2.5 0 0 0-1.8-1.8C19 5 12 5 12 5s-7 0-8.7.4A2.5 2.5 0 0 0 1.5 7.2 26 26 0 0 0 1 12a26 26 0 0 0 .5 4.8 2.5 2.5 0 0 0 1.8 1.8C5 19 12 19 12 19s7 0 8.7-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 23 12a26 26 0 0 0-.5-4.8z"/><path d="m10 15 5-3-5-3z"/></svg></a>
+                </div>
+            </div>
+            <div>
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}/ui/meters.jsp">Energy meters</a></li>
+                    <li><a href="${pageContext.request.contextPath}/ui/zones.jsp">City zones</a></li>
+                    <li><a href="${pageContext.request.contextPath}/ui/streetlights.jsp">Streetlights</a></li>
+                    <li><a href="${pageContext.request.contextPath}/ui/complaints.jsp">Complaints</a></li>
+                    <li><a href="${pageContext.request.contextPath}/ui/policies.jsp">City policies</a></li>
+                    <li><a href="${pageContext.request.contextPath}/ui/reports.jsp">Reports</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}/about.jsp">About us</a></li>
+                    <li><a href="${pageContext.request.contextPath}/contact.jsp">Contact us</a></li>
+                    <li><a href="${pageContext.request.contextPath}/help.jsp">Help centre</a></li>
+                    <li><a href="${pageContext.request.contextPath}/legal.jsp#privacy">Privacy policy</a></li>
+                    <li><a href="${pageContext.request.contextPath}/legal.jsp#terms">Terms of use</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <ul class="foot-contact">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Operations Centre, 42 Galle Road,<br>Colombo 03, Sri Lanka</span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span>+94 11 234 5678<br><span class="small">24/7 emergency line: 1919</span></span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>support@smartcity360.lk</span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Mon to Fri, 8:00 am to 5:00 pm</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="foot-bar">
+        <div class="wrap">
+            <span>&copy; 2026 SmartCity360 Metropolitan Services. All rights reserved.</span>
+            <span><a href="${pageContext.request.contextPath}/legal.jsp#privacy">Privacy</a><a href="${pageContext.request.contextPath}/legal.jsp#terms">Terms</a><a href="${pageContext.request.contextPath}/help.jsp">Help</a></span>
+        </div>
+    </div>
+</footer>
+<div id="toast" role="status"></div>
+<script>
+    /* Theme toggle, dropdown menus and mobile menu. The saved theme is applied in header.jspf before first paint. */
+    (function () {
+        var root = document.documentElement;
+        function current() {
+            var t = root.getAttribute('data-theme');
+            if (t) return t;
+            return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        var tb = document.getElementById('themeToggle');
+        if (tb) tb.addEventListener('click', function () {
+            var next = current() === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            try { localStorage.setItem('sc360.theme', next); } catch (e) { /* not saved, still applied */ }
+        });
+
+        var nt = document.getElementById('navToggle'), nav = document.getElementById('mainNav');
+        if (nt && nav) nt.addEventListener('click', function () {
+            var open = nav.classList.toggle('open');
+            nt.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+
+        var menus = document.querySelectorAll('.dd');
+        function closeAll(except) {
+            menus.forEach(function (d) {
+                if (d === except) return;
+                d.classList.remove('open');
+                var b = d.querySelector(':scope > button');
+                if (b) b.setAttribute('aria-expanded', 'false');
+            });
+        }
+        menus.forEach(function (d) {
+            var b = d.querySelector(':scope > button');
+            if (!b) return;
+            b.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var open = !d.classList.contains('open');
+                closeAll(d);
+                d.classList.toggle('open', open);
+                b.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+        });
+        document.addEventListener('click', function (e) { if (!e.target.closest('.dd')) closeAll(); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
+    })();
+</script>
+</body>
+</html>

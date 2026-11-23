@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>lk.jiat</groupId>
+        <artifactId>smartcity360-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>smartcity360-ear</artifactId>
+    <packaging>ear</packaging>
+    <name>SmartCity360 EAR</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>lk.jiat</groupId>
+            <artifactId>smartcity360-ejb</artifactId>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>lk.jiat</groupId>
+            <artifactId>smartcity360-war</artifactId>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>smartcity360</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <generateApplicationXml>false</generateApplicationXml>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <skinnyWars>false</skinnyWars>
+                    <modules>
+                        <ejbModule>
+                            <groupId>lk.jiat</groupId>
+                            <artifactId>smartcity360-ejb</artifactId>
+                            <bundleFileName>smartcity360-ejb.jar</bundleFileName>
+                        </ejbModule>
+                        <webModule>
+                            <groupId>lk.jiat</groupId>
+                            <artifactId>smartcity360-war</artifactId>
+                            <bundleFileName>smartcity360-war.war</bundleFileName>
+                            <contextRoot>/smartcity360</contextRoot>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

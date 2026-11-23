@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE glassfish-application PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Java EE Application 6.0//EN" "http://glassfish.org/dtds/glassfish-application_6_0-1.dtd">
+<glassfish-application>
+    <!-- Realm group == application role, for the WAR (web.xml) and the EJBs (@RolesAllowed) -->
+    <security-role-mapping>
+        <role-name>ADMIN</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+    <security-role-mapping>
+        <role-name>CITY_MANAGER</role-name>
+        <group-name>CITY_MANAGER</group-name>
+    </security-role-mapping>
+    <security-role-mapping>
+        <role-name>SUPERVISOR</role-name>
+        <group-name>SUPERVISOR</group-name>
+    </security-role-mapping>
+    <security-role-mapping>
+        <role-name>STAFF</role-name>
+        <group-name>STAFF</group-name>
+    </security-role-mapping>
+    <security-role-mapping>
+        <role-name>CITIZEN</role-name>
+        <group-name>CITIZEN</group-name>
+    </security-role-mapping>
+</glassfish-application>

@@ -1,0 +1,64 @@
+<%-- Shared layout for every error page. A page sets: pageTitle, errCode, errKey, errTitle, errMsg, errIco (SVG inner markup),
+     errTone (warn | crit | off | accent) and optionally errActions (comma list: home, back, retry, login). then includes this file.
+     Error pages are dispatched by the container (ERROR dispatch), so PageGuardFilter does not run for them. --%>
+<%
+    Object errUriAttr = request.getAttribute("jakarta.servlet.error.request_uri");
+    String errUri = errUriAttr == null ? "" : String.valueOf(errUriAttr);
+    String errTraceRef = "";
+    if (errUri.contains("/api/")) {                      // API callers get JSON, never an HTML page
+        out.clear();
+        response.setContentType("application/json;charset=UTF-8");
+        String k = String.valueOf(request.getAttribute("errKey"));
+        String m = String.valueOf(request.getAttribute("errMsg")).replace("\"", "'");
+        out.print("{\"error\":\"" + k + "\",\"message\":\"" + m + "\"}");
+        return;
+    }
+    if ("500".equals(String.valueOf(request.getAttribute("errCode")))) {
+        errTraceRef = Long.toString(System.currentTimeMillis(), 36).toUpperCase();
+        Throwable t = (Throwable) request.getAttribute("jakarta.servlet.error.exception");
+        application.log("[sc360-error] ref=" + errTraceRef + " uri=" + errUri, t);   // the stack trace stays in the server log
+    }
+    request.setAttribute("errUri", errUri);
+    request.setAttribute("errRef", errTraceRef);
+    request.setAttribute("errNow", new java.util.Date());
+%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
+<c:set var="acts" value=",${empty errActions ? 'home,back' : errActions},"/>
+<main class="wrap errwrap">
+    <section class="card errcard" role="alert">
+        <span class="err-ico tone-${errTone}" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${errIco}</svg>
+        </span>
+        <p class="err-code">${errCode}</p>
+        <h1 class="err-title">${errTitle}</h1>
+        <p class="muted err-msg">${errMsg}</p>
+
+        <c:if test="${errCode == '404' and not empty errUri}">
+            <p class="err-detail"><span class="muted">Address:</span> <code><c:out value="${errUri}"/></code></p>
+        </c:if>
+        <c:if test="${errCode == '403' and not empty scUsername}">
+            <p class="err-detail">Signed in as <b><c:out value="${scUsername}"/></b> <span class="badge off"><c:out value="${scRole}"/></span></p>
+        </c:if>
+        <c:if test="${errCode == '500' and not empty errRef}">
+            <p class="err-detail"><span class="muted">Reference</span> <code>${errRef}</code>
+                <span class="muted">· <fmt:formatDate value="${errNow}" pattern="yyyy-MM-dd HH:mm"/></span></p>
+            <p class="muted err-small">Quote this reference if you contact support. The technical details are kept in the server log.</p>
+        </c:if>
+
+        <div class="btnrow err-actions">
+            <c:if test="${fn:contains(acts, ',login,')}"><a class="btn primary" href="${pageContext.request.contextPath}/login">Sign in</a></c:if>
+            <c:if test="${fn:contains(acts, ',retry,')}"><a class="btn primary" href="javascript:location.reload()">Try again</a></c:if>
+            <c:if test="${fn:contains(acts, ',home,')}"><a class="btn ${fn:contains(acts, ',login,') or fn:contains(acts, ',retry,') ? '' : 'primary'}" href="${pageContext.request.contextPath}/">Back to home</a></c:if>
+            <c:if test="${fn:contains(acts, ',back,')}"><a class="btn" href="javascript:history.back()">Go back</a></c:if>
+        </div>
+
+        <nav class="err-links" aria-label="Useful pages">
+            <a href="${pageContext.request.contextPath}/ui/complaints">Complaints</a>
+            <a href="${pageContext.request.contextPath}/help">Help</a>
+            <a href="${pageContext.request.contextPath}/contact">Contact</a>
+        </nav>
+    </section>
+</main>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

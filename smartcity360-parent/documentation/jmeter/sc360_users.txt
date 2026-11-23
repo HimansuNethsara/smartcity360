@@ -1,0 +1,6 @@
+username,password
+admin,Demo@1234
+manager1,Demo@1234
+supervisor1,Demo@1234
+staff1,Demo@1234
+citizen1,Demo@1234

@@ -1,0 +1,115 @@
+<%-- Shared page shell, top half. Each page sets pageTitle and active, then includes this.
+     scUsername / scRole / scStaff / scAdmin are set by PageGuardFilter for logged-in users. --%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ctx" content="${pageContext.request.contextPath}">
+    <meta name="color-scheme" content="light dark">
+    <title>${pageTitle} - SmartCity360</title>
+    <%-- Apply the saved theme before the page paints, so there is no flash of the wrong colours. --%>
+    <script>
+        try {
+            var t = localStorage.getItem('sc360.theme');
+            if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+        } catch (e) { /* storage blocked: follow the system setting */ }
+    </script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
+    <script src="${pageContext.request.contextPath}/js/api.js"></script>
+</head>
+<body data-staff="${scStaff ? 'true' : 'false'}" data-admin="${scAdmin ? 'true' : 'false'}" data-manager="${scManager ? 'true' : 'false'}" data-supervisor="${scSupervisor ? 'true' : 'false'}">
+<header class="topbar">
+    <div class="wrap">
+        <a class="brand" href="${pageContext.request.contextPath}/">
+            <span class="logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9l5-3v15"/><path d="M10 21V4l9 4v13"/><path d="M13 11h3M13 15h3"/></svg>
+            </span>
+            <span>SmartCity<b>360</b></span>
+        </a>
+        <button class="iconbtn navtoggle" id="navToggle" type="button" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+
+        <nav class="nav" id="mainNav" aria-label="Main">
+            <c:if test="${scStaff}">
+                <div class="dd ${(active == 'meters' || active == 'zones' || active == 'streetlights') ? 'has-active' : ''}">
+                    <button class="dd-trigger" type="button" aria-haspopup="true" aria-expanded="false">Operations <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+                    <div class="dd-menu">
+                        <a href="${pageContext.request.contextPath}/ui/meters.jsp" class="${active == 'meters' ? 'active' : ''}">
+                            <span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span><span><strong>Energy meters</strong><small>Secure data streams for every meter</small></span></a>
+                        <a href="${pageContext.request.contextPath}/ui/zones.jsp" class="${active == 'zones' ? 'active' : ''}">
+                            <span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg></span><span><strong>City zones</strong><small>Switch power by district, street or building</small></span></a>
+                        <a href="${pageContext.request.contextPath}/ui/streetlights.jsp" class="${active == 'streetlights' ? 'active' : ''}">
+                            <span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span><span><strong>Streetlights</strong><small>Lamp fleet, status and brightness</small></span></a>
+                    </div>
+                </div>
+            </c:if>
+            <c:choose>
+                <c:when test="${scStaff}">
+                    <div class="dd ${(active == 'complaints' || active == 'policies' || active == 'reports') ? 'has-active' : ''}">
+                        <button class="dd-trigger" type="button" aria-haspopup="true" aria-expanded="false">Services <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+                        <div class="dd-menu">
+                            <a href="${pageContext.request.contextPath}/ui/complaints.jsp" class="${active == 'complaints' ? 'active' : ''}">
+                                <span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span><strong>Complaints</strong><small>Track and escalate resident requests</small></span></a>
+                            <a href="${pageContext.request.contextPath}/ui/policies.jsp" class="${active == 'policies' ? 'active' : ''}">
+                                <span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><span><strong>City policies</strong><small>Rules applied to live sensor data</small></span></a>
+                            <a href="${pageContext.request.contextPath}/ui/reports.jsp" class="${active == 'reports' ? 'active' : ''}">
+                                <span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span><strong>Reports</strong><small>Energy, complaint and policy insights</small></span></a>
+                        </div>
+                    </div>
+                </c:when>
+                <c:when test="${not empty scUsername}">
+                    <a href="${pageContext.request.contextPath}/ui/complaints.jsp" class="${active == 'complaints' ? 'active' : ''}">Complaints</a>
+                </c:when>
+            </c:choose>
+            <c:if test="${scAdmin}"><a href="${pageContext.request.contextPath}/ui/users.jsp" class="${active == 'users' ? 'active' : ''}">Users</a></c:if>
+            <div class="dd ${(active == 'help' || active == 'about' || active == 'contact') ? 'has-active' : ''}">
+                <button class="dd-trigger" type="button" aria-haspopup="true" aria-expanded="false">Support <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+                <div class="dd-menu">
+                    <a href="${pageContext.request.contextPath}/help.jsp" class="${active == 'help' ? 'active' : ''}">
+                        <span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg></span><span><strong>Help centre</strong><small>Guides, FAQs and who can do what</small></span></a>
+                    <a href="${pageContext.request.contextPath}/about.jsp" class="${active == 'about' ? 'active' : ''}">
+                        <span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></span><span><strong>About SmartCity360</strong><small>Who we are and what we run</small></span></a>
+                    <a href="${pageContext.request.contextPath}/contact.jsp" class="${active == 'contact' ? 'active' : ''}">
+                        <span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span><strong>Contact us</strong><small>Reach the operations centre</small></span></a>
+                </div>
+            </div>
+            <%-- later slices add their own nav link here (wrap in the matching c:if) --%>
+        </nav>
+
+        <div class="userbox">
+            <c:if test="${not empty scUsername}">
+                <a class="iconbtn ${active == 'notifications' ? 'active' : ''}" href="${pageContext.request.contextPath}/ui/notifications.jsp" aria-label="Notifications" title="Notifications">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8M10.3 20a2 2 0 0 0 3.4 0"/></svg><span class="bell" id="bellCount" hidden></span></a>
+            </c:if>
+            <button class="iconbtn themebtn" id="themeToggle" type="button" aria-label="Switch light or dark theme" title="Switch light or dark theme">
+                <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
+            <c:choose>
+                <c:when test="${not empty scUsername}">
+                    <div class="dd">
+                        <button class="usertrigger" type="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="avatar"><c:out value="${fn:toUpperCase(fn:substring(scUsername, 0, 1))}"/></span>
+                            <span class="uname"><c:out value="${scUsername}"/></span><span class="role"><c:out value="${scRole}"/></span>
+                            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                        <div class="dd-menu right">
+                            <div class="dd-head"><strong><c:out value="${scUsername}"/></strong><small>Signed in as <c:out value="${scRole}"/></small></div>
+                            <a href="${pageContext.request.contextPath}/ui/profile.jsp"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span><strong>My profile</strong><small>Details and password</small></span></a>
+                            <a href="${pageContext.request.contextPath}/ui/notifications.jsp"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8M10.3 20a2 2 0 0 0 3.4 0"/></svg></span><span><strong>Notifications</strong><small>Your inbox</small></span></a>
+                            <a href="${pageContext.request.contextPath}/help.jsp"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg></span><span><strong>Help centre</strong><small>Guides and FAQs</small></span></a>
+                            <div class="dd-sep"></div>
+                            <button class="dd-row dd-danger" type="button" onclick="logout()"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></span><span><strong>Log out</strong></span></button>
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <a class="btn small" href="${pageContext.request.contextPath}/login.jsp">Log in</a>
+                    <a class="btn small primary" href="${pageContext.request.contextPath}/register.jsp">Register</a>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+</header>
+<main class="wrap">
